@@ -10,7 +10,6 @@ import SwiftUI
 struct MainView: View {
     @StateObject var viewModel = ApiService()
     var body: some View {
-        NavigationView {
             ScrollView {
                 VStack(alignment: .leading, spacing: 10) {
                     ForEach(viewModel.missions, id: \.self) { mission in
@@ -26,7 +25,6 @@ struct MainView: View {
                 viewModel.fetchMissions()
             }
             .navigationTitle("SpaceX Missions")
-        }
     }
 }
 
