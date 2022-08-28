@@ -8,23 +8,27 @@
 import SwiftUI
 
 struct MainView: View {
+    
     @StateObject var viewModel = ApiService()
+    
     var body: some View {
+        NavigationView {
             ScrollView {
                 VStack(alignment: .leading, spacing: 10) {
                     ForEach(viewModel.missions, id: \.self) { mission in
                         NavigationLink(destination: MissionDetailsView(mission: mission)) {
-                        InfoView(mission: mission)
+                            InfoView(mission: mission)
                         }
+                        .navigationTitle("SpaceX Missions")
                     }
-                }
+                }.padding(.horizontal, 10.0)
+                    .listStyle(.insetGrouped)
+                    .onAppear {
+                        viewModel.fetchMissions()
+                    }
             }
-            .padding(.horizontal, 10.0)
-            .listStyle(.insetGrouped)
-            .onAppear {
-                viewModel.fetchMissions()
-            }
-            .navigationTitle("SpaceX Missions")
+            .navigationViewStyle(StackNavigationViewStyle())
+        }
     }
 }
 
